@@ -9,7 +9,7 @@ counter, railcars = count_objects(model_path, video_path, **kwargs)
 ```
 
 ### Detection
-![text](static/detection_example.png)
+![text](static/stat_1-1_720-30.gif)
 
 ### Counting
 ```python
