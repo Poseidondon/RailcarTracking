@@ -1,0 +1,28 @@
+# Settings for tracker and object detection
+# You can use parameters listed in https://docs.ultralytics.com/modes/predict/#inference-arguments
+
+# General settings
+device: None    # device to run on, i.e. cuda device=0/1/2/3 or device=cpu
+save: False    # save video with results
+
+# Object detection settings
+conf: 0.6    # object confidence threshold for detection
+iou: 0.4    # intersection over union (IoU) threshold for NMS
+max_det: 300    # maximum number of detections per frame
+
+# Tracker settings
+tracker: custom_fast.yaml    # tracker config, see ultralytics/tracker/cfg
+stream: True    # whether the input source is a video stream
+persist: False    # whether to persist the trackers if they already exist
+vid_stride: 1    # video frame-rate stride
+
+# Debug settings
+show: True    # stream output during inference
+debug: False    # print counter debug info
+verbose: True    # whether the inference is verbose or not
+
+# Show settings
+line_width: 2    # the line width of the bounding boxes, if None, it is scaled to the image size
+show_labels: True    # show box labels
+show_conf: True    # show confidence score
+boxes: True    # show boxes in segmentation predictions
