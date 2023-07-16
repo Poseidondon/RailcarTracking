@@ -82,11 +82,12 @@ Those clips are used to detect moving trains.
 
 ### Usage
 [track_example.py](examples/track_example.py)
-```python
-from train_recorder.clipper import youtube_clip
 
-youtube_clip('https://www.youtube.com/watch?v=Q9_jZVECcjY', out='../replays/clips/example.mp4',
-             duration=5, fps=7, max_height=720, verbose=True)
+```python
+from train_recorder.clipper import yt_clip
+
+yt_clip('https://www.youtube.com/watch?v=aWVfQ4xk_kU', '../replays/clips',
+        ext='mp4', duration=5, fps=7, max_height=720)
 ```
 ### Result
 [example.mp4](replays/clips/example.mp4), containing last 5 seconds of YouTube stream with 7 fps and 1280x720 size.
