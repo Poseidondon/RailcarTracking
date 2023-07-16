@@ -40,7 +40,7 @@ Total: 92
 ```
 
 ### Tracker Config
-You can use custom config for tracking, if it's inside `config\`:
+You can use custom config for tracking, if it's inside `config/`:
 ```python
 counter = count_objects(model, video_path, config='custom_tracker_cfg.yaml')
 ```
