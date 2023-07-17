@@ -11,13 +11,13 @@ def get_yt_id(url):
     return id
 
 
-def yt_clip(url, out_dir, ext='mp4', duration=5, fps=7, max_height=720, filename=None):
+def yt_clip(url, out_dir=None, ext='mp4', duration=5, fps=7, max_height=720, filename=None):
     """
     Records last {duration} seconds of YouTube stream
 
-    :param ext: output extension; if filename specified, this will have no effect
     :param url: link to YouTube stream
-    :param out_dir: path for output file
+    :param out_dir: output dir, if None, writes to replays/clips
+    :param ext: output extension; if filename specified, this will have no effect
     :param duration: clip duration
     :param fps: desired fps
     :param max_height: output video will not exceed this height
@@ -34,12 +34,16 @@ def yt_clip(url, out_dir, ext='mp4', duration=5, fps=7, max_height=720, filename
         if not filename:
             yt_id = get_yt_id(url)
             filename = yt_id + '-' + datetime.now().strftime("%y%m%d-%H%M%S") + '.' + ext
+        if not out_dir:
+            out_dir = Path(__file__).parent.parent / 'replays' / 'clips'
         path = Path(out_dir) / filename
 
         stream_url = output.decode().replace('\n', '')
-        ffmpeg_command = f"""ffmpeg -t {duration} -an -sn -dn -i {stream_url} -filter:v fps=fps={fps} -y {path}"""
+        ffmpeg_command = f"""ffmpeg -hide_banner -loglevel warning -t {duration}"""\
+                         + f""" -an -sn -dn -i {stream_url} -filter:v fps=fps={fps} -y {path}"""
         process = Popen(ffmpeg_command, stdout=PIPE)
         output, err = process.communicate()
         exit_code = process.wait()
 
-    return exit_code
+    if exit_code != 0:
+        raise ChildProcessError(f"Failed to make clip on {url}!")

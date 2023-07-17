@@ -1,0 +1,15 @@
+# Settings for clip_maker
+
+# Clip maker settings
+source: '../main/webcams.csv'    # path to csv file, containing webcam urls. relevant to this dir
+period: 70    # make a clip each period (s)
+repeats: None    # if not None, make clips for each url REPEATS times
+verbose: True    # print debug info
+timeout_factor: 1    # timeout=period*timeout_factor for each process
+
+# Clip settings
+ext: 'mp4'    # clips extension
+out_dir: None    # output dir, if None, writes to replays/clips
+duration: 5    # clip duration (s)
+fps: 7    # desired clip fps
+max_height: 720    # output video will not exceed this height

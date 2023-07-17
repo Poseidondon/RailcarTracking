@@ -5,7 +5,7 @@ When moving train is detected, railcars are counted and classified and replay of
 ## Requirements
 - [ffmpeg](https://ffmpeg.org/download.html)
 - [youtube-dl](https://github.com/ytdl-org/youtube-dl)
-- [Python>=3.4](https://www.python.org/downloads/)
+- [Python>=3.8](https://www.python.org/downloads/)
 - [requirements.txt](requirements.txt)
 
 ## Installing
