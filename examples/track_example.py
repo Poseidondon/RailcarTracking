@@ -1,5 +1,5 @@
 from ultralytics import YOLO
-from railcar_tracker.object_counter import count_objects
+from railcar_tracker import count_objects
 
 model_path = '../models/yolov8n_v2.pt'
 model = YOLO(model_path)

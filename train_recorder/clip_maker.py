@@ -66,7 +66,7 @@ if __name__ == '__main__':
             p.join(timeout=period * timeout_factor)
 
         # debug info
-        time_spent = (time.time() - start)
+        time_spent = time.time() - start
         if verbose:
             print('\033[92m' + f'SUCCESS: {len([ec for p, _ in processes if (ec := p.exitcode) == 0])}/{len(urls)}.\t'
                                f'TIME: {time_spent:.2f}s' + '\033[0m')

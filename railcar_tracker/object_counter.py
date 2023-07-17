@@ -1,5 +1,4 @@
 import yaml
-import pathlib
 from yaml.loader import SafeLoader
 from collections import Counter
 from pathlib import Path

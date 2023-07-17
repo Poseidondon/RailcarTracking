@@ -1,7 +1,4 @@
-import os
-import glob
+from train_recorder.clipper import yt_clip, get_yt_id
+import train_recorder.clip_maker
 
-
-module_path = os.path.dirname(__file__)
-files = glob.glob(os.path.join(module_path, 'acme*.py'))
-__all__ = [os.path.basename(f)[:-3] for f in files]
+__all__ = 'yt_clip', 'get_yt_id', 'clip_maker'
