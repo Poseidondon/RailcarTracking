@@ -17,9 +17,10 @@ Railcar Tracker is a tool to count railcars and classify them.
 
 ### Usage
 [track_example.py](examples/track_example.py)
+
 ```python
 from ultralytics import YOLO
-from railcar_tracker.object_counter import count_objects
+from tracker.object_counter import count_objects
 
 model_path = '../models/yolov8n_v2.pt'
 model = YOLO(model_path)
@@ -84,7 +85,7 @@ Those clips are used to detect moving trains.
 [track_example.py](examples/track_example.py)
 
 ```python
-from train_recorder.clipper import yt_clip
+from recorder.clipper import yt_clip
 
 yt_clip('https://www.youtube.com/watch?v=aWVfQ4xk_kU', '../replays/clips',
         ext='mp4', duration=5, fps=7, max_height=720)

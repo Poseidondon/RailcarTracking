@@ -1,10 +1,11 @@
-import yaml
-from yaml.loader import SafeLoader
+import sys
+sys.path.append("..")
+
+from config import load_config
 from collections import Counter
-from pathlib import Path
 
 
-def count_objects(model, video_path, config='tracker_cfg.yaml', **kwargs):
+def count_objects(model, video_path, config='default.yaml', **kwargs):
     """
     Count objects on video, using unique IDs
 
@@ -19,8 +20,7 @@ def count_objects(model, video_path, config='tracker_cfg.yaml', **kwargs):
     railcars = {}
 
     # load config
-    path = Path(__file__).parent.parent / 'config' / config
-    cfg = yaml.load(open(path), Loader=SafeLoader)
+    cfg = load_config('tracker', config)
     for key in kwargs:
         cfg[key] = kwargs[key]
     debug = cfg.pop('debug')

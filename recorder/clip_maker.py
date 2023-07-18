@@ -1,16 +1,18 @@
 import argparse
-import yaml
 import pandas as pd
 import time
+import sys
+sys.path.append("..")
 
 from pathlib import Path
 from multiprocessing import Process
 from clipper import yt_clip
+from config import load_config
 
 if __name__ == '__main__':
     # parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', default='clip_maker_cfg.yaml',
+    parser.add_argument('-c', '--config', default='default.yaml',
                         help='config file to use, stored in config/')
 
     parser.add_argument('-s', '--source', help='path to csv file, containing webcam urls')
@@ -27,10 +29,7 @@ if __name__ == '__main__':
     args = parser.parse_args().__dict__
 
     # load config
-    cfg_path = Path(__file__).parent.parent / 'config' / args.pop('config')
-    cfg = yaml.load(open(cfg_path), Loader=yaml.SafeLoader)
-    cfg['out_dir'] = None if cfg['out_dir'] == 'None' else cfg['out_dir']
-    cfg['repeats'] = None if cfg['out_dir'] == 'None' else cfg['out_dir']
+    cfg = load_config('clipper', cfg_path=args.pop('config'))
     if args['verbose']:
         cfg['verbose'] = True
     if args['silent']:
@@ -40,7 +39,7 @@ if __name__ == '__main__':
 
     if not args['source']:
         args.pop('source')
-        cfg['source'] = cfg_path.parent / cfg['source']
+        cfg['source'] = Path(__file__).parent.parent / 'config' / cfg['source']
     for arg in args:
         if args[arg]:
             cfg[arg] = args[arg]
