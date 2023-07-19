@@ -41,11 +41,16 @@ timeout_factor: 1    # timeout=period*timeout_factor for each process
 
 # Clip settings
 ext: 'mp4'    # clips extension
-out_dir: None    # output dir, if None, writes to replays/clips
+record_dir: None    # output dir, if None, writes to replays/clips
 duration: 5    # clip duration (s)
 fps: 7    # desired clip fps
 max_height: 720    # output video will not exceed this height
 
 # Train detector settings
-tolerance: 2    #
-max_angle: 0.5    # (rad)
+tolerance: 4    # number of successes to detect train
+max_angle: 0.3    # angle (rad) between 2 trajectory vectors
+
+# Clip handler settings
+sleep_factor: 1    # time to sleep if all clips handled, equals to period * sleep_factor
+save_clips: True    # save clips with trains
+clip_age: 20    # file age (s) after which handler can use it, helps to avoid permission errors

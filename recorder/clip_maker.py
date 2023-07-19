@@ -1,12 +1,13 @@
 import argparse
 import pandas as pd
 import time
+import os
 import sys
 sys.path.append("..")
 
 from pathlib import Path
 from multiprocessing import Process
-from clipper import yt_clip
+from recorder import yt_clip
 from config import load_config
 
 if __name__ == '__main__':
@@ -19,7 +20,7 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--period', help='make a clip each period (s)', type=float)
     parser.add_argument('-r', '--repeats', help='if not None, make clips for each url REPEATS times', type=int)
     parser.add_argument('-e', '--ext', help='clips extension')
-    parser.add_argument('-o', '--out_dir', help='output dir, if None, writes to replays/clips')
+    parser.add_argument('-o', '--record_dir', help='output dir, if None, writes to dir specified in config')
     parser.add_argument('-d', '--duration', help='clip duration (s)', type=float)
     parser.add_argument('-f', '--fps', help='desired clip fps', type=int)
     parser.add_argument('--max_height', help='output video will not exceed this height', type=int)
@@ -36,6 +37,17 @@ if __name__ == '__main__':
         cfg['verbose'] = False
     args.pop('verbose')
     args.pop('silent')
+
+    # load clip dir
+    if not args['record_dir']:
+        if not cfg['record_dir']:
+            record_dir = Path(__file__).parent.parent / 'replays'
+        else:
+            record_dir = Path(__file__).parent.parent / 'config' / cfg['record_dir']
+    else:
+        record_dir = args['record_dir']
+    args.pop('record_dir')
+    cfg.pop('record_dir')
 
     if not args['source']:
         args.pop('source')
@@ -58,7 +70,7 @@ if __name__ == '__main__':
 
         # run processes
         processes = [(Process(target=yt_clip,
-                              args=(url,), kwargs=cfg), url) for url in urls]
+                              args=(url, record_dir), kwargs=cfg), url) for url in urls]
         for p, _ in processes:
             p.start()
         for p, _ in processes:

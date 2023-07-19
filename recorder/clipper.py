@@ -11,14 +11,14 @@ def get_yt_id(url):
     return id
 
 
-def yt_clip(url, out_dir=None, ext='mp4', duration=5, fps=7, max_height=720, filename=None):
+def yt_clip(url, record_dir, ext='mp4', duration=5, fps=7, max_height=720, filename=None):
     """
     Records last {duration} seconds of YouTube stream
 
     :param url: link to YouTube stream
-    :param out_dir: output dir, if None, writes to replays/clips
+    :param record_dir: output dir, if None, writes to replays/records
     :param ext: output extension; if filename specified, this will have no effect
-    :param duration: clip duration
+    :param duration: record duration
     :param fps: desired fps
     :param max_height: output video will not exceed this height
     :param filename: manual file naming, overrides ext
@@ -34,9 +34,7 @@ def yt_clip(url, out_dir=None, ext='mp4', duration=5, fps=7, max_height=720, fil
         if not filename:
             yt_id = get_yt_id(url)
             filename = yt_id + '-' + datetime.now().strftime("%y%m%d-%H%M%S") + '.' + ext
-        if not out_dir:
-            out_dir = Path(__file__).parent.parent / 'replays' / 'clips'
-        path = Path(out_dir) / filename
+        path = Path(record_dir) / 'clips' / filename
 
         stream_url = output.decode().replace('\n', '')
         ffmpeg_command = f"""ffmpeg -hide_banner -loglevel warning -t {duration}"""\
@@ -46,4 +44,4 @@ def yt_clip(url, out_dir=None, ext='mp4', duration=5, fps=7, max_height=720, fil
         exit_code = process.wait()
 
     if exit_code != 0:
-        raise ChildProcessError(f"Failed to make clip on {url}!")
+        raise ChildProcessError(f"Failed to make record on {url}!")

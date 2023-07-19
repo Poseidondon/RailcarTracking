@@ -1,11 +1,9 @@
-import yaml
 import numpy as np
 import sys
 sys.path.append("..")
 
 from config import load_config
 from numpy.linalg import norm
-from pathlib import Path
 
 
 def detect_train(model, video_path, config='default.yaml', **kwargs):
@@ -29,6 +27,7 @@ def detect_train(model, video_path, config='default.yaml', **kwargs):
     max_angle = cfg.pop('max_angle')
     # trajectories[id] = [tolerance, prev_pos, unit_vector]
     trajectories = {}
+
     for result in model.track(video_path, **cfg):
         if result.boxes.id is None:
             continue
@@ -54,6 +53,8 @@ def detect_train(model, video_path, config='default.yaml', **kwargs):
                     else:
                         trajectories[id] = [trajectories[id][0] + 1, center, vector]
                         if trajectories[id][0] >= tolerance:
+                            # Release the process
+                            model.predict()
                             if debug:
                                 print(f'Train detected:\t{video_path}')
                             return True
