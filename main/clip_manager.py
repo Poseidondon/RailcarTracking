@@ -28,8 +28,6 @@ t_maker.daemon = True  # thread dies with the program
 t_handler.start()
 t_maker.start()
 
-# ... do other things here
-
 # TODO: replace it
 verbose = True
 while True:
@@ -47,8 +45,8 @@ while True:
 
     if verbose:
         if line_handler:
-            print("HANDLER:", line_handler, end="")
+            print("HANDLER:", line_handler, end="", flush=True)
         if line_maker:
-            print("MAKER:", line_maker, end="")
+            print("MAKER:", line_maker, end="", flush=True)
 
     time.sleep(1)

@@ -59,7 +59,7 @@ if __name__ == '__main__':
             for file in files:
                 res = detect_train(model, record_dir / 'clips' / file, show=False, verbose=False)
                 if res:
-                    print('Train  detected:', file)
+                    print('Train  detected:', file, flush=True)
                     if save_clips:
                         to_move.append(file)
                     else:
@@ -74,7 +74,7 @@ if __name__ == '__main__':
                     os.remove(record_dir / 'clips' / filename)
                 except PermissionError as e:
                     to_delete.append(filename)
-                    print('\033[93m' + f"WARNING: DELETING {e}" + '\033[0m')
+                    print('\033[93m' + f"WARNING: DELETING {e}" + '\033[0m', flush=True)
             temp = to_move.copy()
             to_move = []
             for filename in temp:
@@ -82,7 +82,7 @@ if __name__ == '__main__':
                     os.rename(record_dir / 'clips' / filename, record_dir / 'train_clips' / filename)
                 except PermissionError as e:
                     to_move.append(filename)
-                    print('\033[93m' + f"WARNING: MOVING {e}" + '\033[0m')
+                    print('\033[93m' + f"WARNING: MOVING {e}" + '\033[0m', flush=True)
         else:
-            print(f'No clips left. Sleeping for {sleep_time:.2f}s')
+            print(f'No clips left. Sleeping for {sleep_time:.2f}s', flush=True)
             time.sleep(sleep_time)

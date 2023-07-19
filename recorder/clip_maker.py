@@ -1,7 +1,6 @@
 import argparse
 import pandas as pd
 import time
-import os
 import sys
 sys.path.append("..")
 
@@ -80,17 +79,17 @@ if __name__ == '__main__':
         time_spent = time.time() - start
         if verbose:
             print('\033[92m' + f'SUCCESS: {len([ec for p, _ in processes if (ec := p.exitcode) == 0])}/{len(urls)}.\t'
-                               f'TIME: {time_spent:.2f}s' + '\033[0m')
+                               f'TIME: {time_spent:.2f}s' + '\033[0m', flush=True)
         fails = [(p, url) for p, url in processes if p.exitcode != 0]
         for p, url in fails:
-            print('\033[91m' + f'FAIL: {url}\tEXITCODE: {p.exitcode}' + '\033[0m')
+            print('\033[91m' + f'FAIL: {url}\tEXITCODE: {p.exitcode}' + '\033[0m', flush=True)
 
         # sleep
         time_left = period - time_spent
         if time_left > 0:
             time.sleep(time_left)
         else:
-            print('\033[93m' + f"WARNING: Clip maker can't keep up! Latency is {abs(time_left):.2f}s!" + '\033[0m')
+            print('\033[93m' + f"WARNING: Clip maker can't keep up! Latency is {abs(time_left):.2f}s!" + '\033[0m', flush=True)
 
         if repeats_left:
             repeats_left -= 1
