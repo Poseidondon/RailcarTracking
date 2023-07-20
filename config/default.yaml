@@ -54,3 +54,6 @@ max_angle: 0.3    # angle (rad) between 2 trajectory vectors
 sleep_factor: 1    # time to sleep if all clips handled, equals to period * sleep_factor
 save_clips: True    # save clips with trains
 clip_age: 20    # file age (s) after which handler can use it, helps to avoid permission errors
+
+# Clip manager settings
+gap_factor: 1    # when searching for clip start and length add safety gaps = period * (+-gap_factor)

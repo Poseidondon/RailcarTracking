@@ -59,12 +59,13 @@ if __name__ == '__main__':
             for file in files:
                 res = detect_train(model, record_dir / 'clips' / file, show=False, verbose=False)
                 if res:
-                    print('Train  detected:', file, flush=True)
+                    print('Train detected:', file, flush=True)
                     if save_clips:
                         to_move.append(file)
                     else:
                         to_delete.append(file)
                 else:
+                    print('No trains:', file, flush=True)
                     to_delete.append(file)
 
             temp = to_delete.copy()

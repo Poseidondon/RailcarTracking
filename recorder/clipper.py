@@ -33,7 +33,7 @@ def yt_clip(url, record_dir, ext='mp4', duration=5, fps=7, max_height=720, filen
     if exit_code == 0:
         if not filename:
             yt_id = get_yt_id(url)
-            filename = yt_id + '-' + datetime.now().strftime("%y%m%d-%H%M%S") + '.' + ext
+            filename = 'yt-' + yt_id + '-' + datetime.now().strftime("%y%m%d-%H%M%S") + '.' + ext
         path = Path(record_dir) / 'clips' / filename
 
         stream_url = output.decode().replace('\n', '')
