@@ -40,7 +40,7 @@ repeats: None    # if not None, make clips for each url REPEATS times
 timeout_factor: 1    # timeout=period*timeout_factor for each process
 
 # Clip settings
-ext: 'mp4'    # clips extension
+ext: 'ts'    # clips extension
 record_dir: None    # output dir, if None, writes to replays/clips
 duration: 5    # clip duration (s)
 fps: 7    # desired clip fps

@@ -11,7 +11,7 @@ def get_yt_id(url):
     return id
 
 
-def yt_clip(url, record_dir, ext='mp4', duration=5, fps=7, max_height=720, filename=None):
+def yt_clip(url, record_dir, ext='ts', duration=5, fps=7, max_height=720, filename=None):
     """
     Records last {duration} seconds of YouTube stream
 

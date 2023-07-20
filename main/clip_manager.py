@@ -97,7 +97,8 @@ while True:
                 pickle_save(timecodes, timecodes_path)
                 # TODO: add url; save replay
                 db.trains.insert_one({"type": src_type, "yt_id": src_id, "yt_url": None,
-                                      "replay_path": None, "start": src_start, "end": src_end})
+                                      "replay_path": None, "start": src_start, "end": src_end,
+                                      "railcars": None})
 
     for line_maker in lines_maker:
         print(line_maker, end="", flush=True)
