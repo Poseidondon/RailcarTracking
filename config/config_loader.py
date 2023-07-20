@@ -17,7 +17,7 @@ def load_config(cfg_type: str, cfg_path='default.yaml'):
                                'stream', 'persist', 'vid_stride', 'show', 'debug', 'verbose', 'line_width',
                                'show_labels', 'show_conf', 'boxes'],
                    'clipper': ['source', 'period', 'repeats', 'verbose', 'timeout_factor', 'ext', 'record_dir',
-                               'duration', 'fps', 'max_height'],
+                               'duration', 'clip_fps', 'max_height'],
                    'train_detector': ['device', 'save', 'project', 'name', 'exist_ok', 'conf', 'iou', 'max_det',
                                       'tracker', 'stream', 'persist', 'vid_stride', 'show', 'verbose', 'debug',
                                       'line_width', 'show_labels', 'show_conf', 'boxes', 'tolerance', 'max_angle']}

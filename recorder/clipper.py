@@ -11,7 +11,7 @@ def get_yt_id(url):
     return id
 
 
-def yt_clip(url, record_dir, ext='ts', duration=5, fps=7, max_height=720, filename=None):
+def yt_clip(url, record_dir, ext='ts', duration=5, clip_fps=7, max_height=720, filename=None):
     """
     Records last {duration} seconds of YouTube stream
 
@@ -19,7 +19,7 @@ def yt_clip(url, record_dir, ext='ts', duration=5, fps=7, max_height=720, filena
     :param record_dir: output dir, if None, writes to replays/records
     :param ext: output extension; if filename specified, this will have no effect
     :param duration: record duration
-    :param fps: desired fps
+    :param clip_fps: desired fps
     :param max_height: output video will not exceed this height
     :param filename: manual file naming, overrides ext
     :return: exit code
@@ -38,7 +38,7 @@ def yt_clip(url, record_dir, ext='ts', duration=5, fps=7, max_height=720, filena
 
         stream_url = output.decode().replace('\n', '')
         ffmpeg_command = f"""ffmpeg -hide_banner -loglevel warning -t {duration}"""\
-                         + f""" -an -sn -dn -i {stream_url} -filter:v fps=fps={fps} -y {path}"""
+                         + f""" -an -sn -dn -i {stream_url} -filter:v fps=fps={clip_fps} -y {path}"""
         process = Popen(ffmpeg_command, stdout=PIPE)
         output, err = process.communicate()
         exit_code = process.wait()

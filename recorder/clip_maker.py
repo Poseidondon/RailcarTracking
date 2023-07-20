@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument('-e', '--ext', help='clips extension')
     parser.add_argument('-o', '--record_dir', help='output dir, if None, writes to dir specified in config')
     parser.add_argument('-d', '--duration', help='clip duration (s)', type=float)
-    parser.add_argument('-f', '--fps', help='desired clip fps', type=int)
+    parser.add_argument('-f', '--clip_fps', help='desired clip fps', type=int)
     parser.add_argument('--max_height', help='output video will not exceed this height', type=int)
     parser.add_argument('-v', '--verbose', help='print debug info', action='store_true')
     parser.add_argument('--silent', help='do not print debug info', action='store_true')

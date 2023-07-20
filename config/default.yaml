@@ -39,12 +39,15 @@ period: 70    # make a clip each period (s)
 repeats: None    # if not None, make clips for each url REPEATS times
 timeout_factor: 1    # timeout=period*timeout_factor for each process
 
-# Clip settings
+# Clips and records settings
 ext: 'ts'    # clips extension
-record_dir: None    # output dir, if None, writes to replays/clips
+record_dir: None    # output dir, if None, writes to replays/
 duration: 5    # clip duration (s)
-fps: 7    # desired clip fps
+clip_fps: 7    # desired clip fps
 max_height: 720    # output video will not exceed this height
+segment_fps: 15    # desired segment fps
+segment_time: 30    # segment duration
+segment_count: 12    # max number of segments for one source
 
 # Train detector settings
 tolerance: 4    # number of successes to detect train
