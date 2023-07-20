@@ -9,6 +9,7 @@ from subprocess import PIPE, Popen
 from threading import Thread
 from queue import Queue, Empty
 from config import load_param
+from init_mongodb import init_db
 
 ON_POSIX = 'posix' in sys.builtin_module_names
 
@@ -43,6 +44,8 @@ t_maker.daemon = True  # thread dies with the program
 t_handler.start()
 t_maker.start()
 
+# init some parameters
+db = init_db()
 period = load_param('period')
 gap_factor = load_param('gap_factor')
 # TODO: period scaling
@@ -92,7 +95,9 @@ while True:
                 print('\033[92m' + f'TRAIN: {src} ({src_start})-({src_end})' + '\033[0m')
                 timecodes.pop(src)
                 pickle_save(timecodes, timecodes_path)
-                # TODO: save replay here and write to db
+                # TODO: add url; save replay
+                db.trains.insert_one({"type": src_type, "yt_id": src_id, "yt_url": None,
+                                      "replay_path": None, "start": src_start, "end": src_end})
 
     for line_maker in lines_maker:
         print(line_maker, end="", flush=True)
