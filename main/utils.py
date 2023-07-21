@@ -83,23 +83,25 @@ def save_record(src: str, start: datetime.datetime, end: datetime.datetime, cfg=
             if start < dt:
                 first_file_ix = max(i - 1, 0)
                 if i == 0:
-                    print('\033[93m'+f"WARNING: No records for '{src}' in time interval ({start})-({end})!"+'\033[0m',
+                    print('\033[93m'+f"WARNING: No record for '{src}' at the begining ({start})!"+'\033[0m',
                           flush=True)
         if first_file_ix is not None:
             if end <= dt:
                 last_file_ix = max(i - 1, 0)
                 break
     if last_file_ix is None:
+        print('\033[93m'+f"WARNING: No record for '{src}' at the end ({end})!"+'\033[0m',
+              flush=True)
         last_file_ix = len(files_with_dt) - 1
 
     files = [files_with_dt[i][0] for i in range(first_file_ix, last_file_ix + 1)]
     files_formatted = '|'.join([str(replay_dir / 'records' / src / f) for f in files])
     out_path = replay_dir / 'train_replays' / (src + '-' + start.strftime("%y%m%d-%H%M%S") + '.ts')
-    ffmpeg_command = f"ffmpeg -i \"concat:{files_formatted}\" -c copy {out_path}"
+    ffmpeg_command = f"ffmpeg -hide_banner -loglevel warning -i \"concat:{files_formatted}\" -c copy {out_path}"
     process = Popen(ffmpeg_command, stdout=PIPE)
     exit_code = process.wait()
 
     if exit_code == 0:
-        return out_path
+        return str(out_path)
     else:
         raise ChildProcessError("FAIL: ffmpeg concatenation failed!")

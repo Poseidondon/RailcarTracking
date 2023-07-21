@@ -2,7 +2,7 @@ import numpy as np
 import sys
 sys.path.append("..")
 
-from config import load_config
+from config import load_config, load_param
 from numpy.linalg import norm
 
 
@@ -22,6 +22,7 @@ def detect_train(model, video_path, config='default.yaml', **kwargs):
     for key in kwargs:
         cfg[key] = kwargs[key]
     debug = cfg.pop('debug')
+    cfg['conf'] = load_param('detector_conf', config)
 
     tolerance = cfg.pop('tolerance')
     max_angle = cfg.pop('max_angle')

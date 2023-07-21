@@ -11,7 +11,7 @@ from subprocess import PIPE, Popen
 from threading import Thread
 from queue import Queue, Empty
 from config import load_param
-from utils import init_db, enqueue_output, pickle_load, pickle_save
+from utils import init_db, enqueue_output, pickle_load, pickle_save, save_record
 
 ON_POSIX = 'posix' in sys.builtin_module_names
 
@@ -100,9 +100,9 @@ if __name__ == '__main__':
                     print('\033[92m' + f'TRAIN: {src} ({src_start})-({src_end})' + '\033[0m')
                     timecodes.pop(src)
                     pickle_save(timecodes, timecodes_path)
-                    # TODO: add url; save replay
+                    replay_path = save_record(src, src_start, src_end, cfg)
                     db.trains.insert_one({"type": src_type, "yt_id": src_id,
-                                          "replay_path": None, "start": src_start, "end": src_end,
+                                          "replay_path": replay_path, "start": src_start, "end": src_end,
                                           "railcars": None})
 
         # print clip_maker and record_maker info

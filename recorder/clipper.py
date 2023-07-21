@@ -44,4 +44,4 @@ def yt_clip(url, record_dir, ext='ts', duration=5, clip_fps=7, max_height=720, f
         exit_code = process.wait()
 
     if exit_code != 0:
-        raise ChildProcessError(f"Failed to make record on {url}!")
+        raise ChildProcessError(f"Failed to make clip of {url}!")

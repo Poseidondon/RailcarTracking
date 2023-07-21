@@ -53,6 +53,7 @@ save_records: True    # save record with passing train
 # Train detector settings
 tolerance: 4    # number of successes to detect train
 max_angle: 0.3    # angle (rad) between 2 trajectory vectors
+detector_conf: 0.8    # confidence used when detecting trains
 
 # Clip handler settings
 sleep_factor: 1    # time to sleep if all clips handled, equals to period * sleep_factor
