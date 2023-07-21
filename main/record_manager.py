@@ -1,5 +1,4 @@
 import os.path
-import sys
 import time
 import datetime
 import argparse
@@ -29,18 +28,24 @@ if __name__ == '__main__':
     # initializing threads
     clip_handler_path = Path(__file__).parent.parent / 'recorder' / 'clip_handler.py'
     clip_maker_path = Path(__file__).parent.parent / 'recorder' / 'clip_maker.py'
+    record_maker_path = Path(__file__).parent.parent / 'recorder' / 'record_maker.py'
     clip_handler = Popen('python ' + str(clip_handler_path) + f" -c {cfg}",
                          stdout=PIPE, bufsize=1, text=True, close_fds=ON_POSIX)
     clip_maker = Popen('python ' + str(clip_maker_path) + f" -c {cfg}",
                        stdout=PIPE, bufsize=1, text=True, close_fds=ON_POSIX)
+    record_maker = Popen('python ' + str(record_maker_path) + f" -c {cfg}",
+                         stdout=PIPE, bufsize=1, text=True, close_fds=ON_POSIX)
     q_handler = Queue()
-    q_maker = Queue()
+    msg_queue = Queue()
     t_handler = Thread(target=enqueue_output, args=(clip_handler.stdout, q_handler))
-    t_maker = Thread(target=enqueue_output, args=(clip_maker.stdout, q_maker))
+    t_clip_maker = Thread(target=enqueue_output, args=(clip_maker.stdout, msg_queue))
+    t_record_maker = Thread(target=enqueue_output, args=(record_maker.stdout, msg_queue))
     t_handler.daemon = True  # thread dies with the program
-    t_maker.daemon = True  # thread dies with the program
+    t_clip_maker.daemon = True  # thread dies with the program
+    t_record_maker.daemon = True
     t_handler.start()
-    t_maker.start()
+    t_clip_maker.start()
+    t_record_maker.start()
 
     # init some parameters
     db = init_db()
@@ -68,7 +73,7 @@ if __name__ == '__main__':
         lines_maker = []
         while True:
             try:
-                lines_maker.append(q_maker.get_nowait())  # or q.get_nowait()
+                lines_maker.append(msg_queue.get_nowait())  # or q.get_nowait()
             except Empty:
                 break
 
@@ -100,7 +105,7 @@ if __name__ == '__main__':
                                           "replay_path": None, "start": src_start, "end": src_end,
                                           "railcars": None})
 
-        # print clip_maker info
+        # print clip_maker and record_maker info
         for line_maker in lines_maker:
             print(line_maker, end="", flush=True)
 
