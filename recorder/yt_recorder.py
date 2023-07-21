@@ -41,20 +41,22 @@ if __name__ == '__main__':
             break
         else:
             print('\033[93m' + f"WARNING: Can't get stream url for {args['input']}!" + '\033[0m', flush=True)
-            time.sleep(1)
+            time.sleep(3)
 
     # reset folder
     yt_id = get_yt_id(args['input'])
-    shutil.rmtree(record_dir / f"yt-{yt_id}")
+    if os.path.exists(record_dir / f"yt-{yt_id}"):
+        shutil.rmtree(record_dir / f"yt-{yt_id}")
     os.mkdir(record_dir / f"yt-{yt_id}")
 
     # download segments
     stream_url = output.decode().replace('\n', '')
     ffmpeg_command = f"ffmpeg -hide_banner -loglevel warning -an -sn -dn -i {stream_url} -filter:v"\
-                     + f" fps=fps={segment_fps} -f ssegment -segment_time {segment_time} -strftime 1"\
+                     + f" fps=fps={segment_fps} -f ssegment -reset_timestamps 1 -segment_time {segment_time} -strftime 1"\
                      + f" {record_dir}\\yt-{yt_id}\\yt-{yt_id}-%y%m%d-%H%M%S.ts"
     process = Popen(ffmpeg_command, stdout=PIPE)
 
+    prev_count = 0
     # segment cleaner
     while True:
         files = os.listdir(record_dir / f"yt-{yt_id}")

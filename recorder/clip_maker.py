@@ -89,7 +89,8 @@ if __name__ == '__main__':
         if time_left > 0:
             time.sleep(time_left)
         else:
-            print('\033[93m' + f"WARNING: Clip maker can't keep up! Latency is {abs(time_left):.2f}s!" + '\033[0m', flush=True)
+            print('\033[93m' + f"WARNING: Clip maker can't keep up! Latency is {abs(time_left):.2f}s!" + '\033[0m',
+                  flush=True)
 
         if repeats_left:
             repeats_left -= 1

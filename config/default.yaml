@@ -45,9 +45,10 @@ record_dir: None    # output dir, if None, writes to replays/
 duration: 5    # clip duration (s)
 clip_fps: 7    # desired clip fps
 max_height: 720    # output video will not exceed this height
-segment_fps: 15    # desired segment fps
+segment_fps: 20    # desired segment fps
 segment_time: 30    # segment duration
 segment_count: 12    # max number of segments for one source
+save_records: True    # save record with passing train
 
 # Train detector settings
 tolerance: 4    # number of successes to detect train
@@ -55,8 +56,8 @@ max_angle: 0.3    # angle (rad) between 2 trajectory vectors
 
 # Clip handler settings
 sleep_factor: 1    # time to sleep if all clips handled, equals to period * sleep_factor
-save_clips: True    # save clips with trains
+save_clips: False    # save clips with trains
 clip_age: 20    # file age (s) after which handler can use it, helps to avoid permission errors
 
 # Clip manager settings
-gap_factor: 1    # when searching for clip start and length add safety gaps = period * (+-gap_factor)
+gap_factor: 0.8    # when searching for clip start and length add safety gaps = period * (+-gap_factor)
