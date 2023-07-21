@@ -40,7 +40,7 @@ repeats: None    # if not None, make clips for each url REPEATS times
 timeout_factor: 1    # timeout=period*timeout_factor for each process
 
 # Clips and records settings
-ext: 'ts'    # clips extension
+ext: 'ts'    # clips and records extension
 record_dir: None    # output dir, if None, writes to replays/
 duration: 5    # clip duration (s)
 clip_fps: 7    # desired clip fps
@@ -53,7 +53,7 @@ save_records: True    # save record with passing train
 # Train detector settings
 tolerance: 4    # number of successes to detect train
 max_angle: 0.3    # angle (rad) between 2 trajectory vectors
-detector_conf: 0.8    # confidence used when detecting trains
+detector_conf: 0.7    # confidence used when detecting trains
 
 # Clip handler settings
 sleep_factor: 1    # time to sleep if all clips handled, equals to period * sleep_factor
@@ -61,4 +61,4 @@ save_clips: False    # save clips with trains
 clip_age: 20    # file age (s) after which handler can use it, helps to avoid permission errors
 
 # Clip manager settings
-gap_factor: 0.8    # when searching for clip start and length add safety gaps = period * (+-gap_factor)
+gap_factor: 0.6    # when searching for clip start and length add safety gaps = period * (+-gap_factor)
